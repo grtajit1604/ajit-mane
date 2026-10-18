@@ -179,18 +179,25 @@ svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8;
 /* Portrait card — right column, level with the headline */
 .hero-photo {
   position:relative; align-self:center; justify-self:end;
-  width:100%; max-width:460px; aspect-ratio:1 / 1.02; margin:0;
-  border-radius:var(--r); overflow:hidden;
-  background:linear-gradient(155deg, rgba(99,102,241,.20), rgba(124,58,237,.10) 55%, rgba(13,148,136,.16));
-  border:1px solid var(--line); box-shadow:var(--shadow-md);
+  width:100%; max-width:500px; margin:0;
 }
+/* No card: the cut-out sits straight on the page. The soft glow behind the
+   head uses the same indigo/violet as the rest of the hero, and the edges of
+   the photo fade out so there is no visible boundary. */
 .hero-photo img {
-  position:absolute; z-index:1; left:50%; bottom:0;
-  width:112%; max-width:none; height:auto; transform:translateX(-50%);
+  position:relative; z-index:1; width:100%; height:auto;
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 0%, #000 60%, transparent 97%),
+    linear-gradient(to right, transparent 0%, #000 17%, #000 88%, transparent 100%);
+  mask-image:
+    linear-gradient(to bottom, #000 0%, #000 60%, transparent 97%),
+    linear-gradient(to right, transparent 0%, #000 17%, #000 88%, transparent 100%);
+  -webkit-mask-composite:source-in; mask-composite:intersect;
 }
 .hero-photo-glow {
-  position:absolute; z-index:0; left:12%; right:12%; bottom:14%; aspect-ratio:1;
-  border-radius:50%; background:#fff; opacity:.6; filter:blur(36px);
+  position:absolute; z-index:0; left:-6%; right:-6%; top:-18%; aspect-ratio:1;
+  border-radius:50%; pointer-events:none;
+  background:radial-gradient(closest-side, rgba(124,58,237,.26), rgba(99,102,241,.13) 50%, transparent 100%);
 }
 
 .pill {
